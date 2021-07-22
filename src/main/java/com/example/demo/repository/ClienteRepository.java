@@ -12,7 +12,10 @@ import com.example.demo.models.Cliente;
 //Classe responsável por consumir o banco
 public class ClienteRepository {
 
-    // Método responsável por resgatar as informações do banco
+	//Simluador de banco de dados
+	private static ArrayList<Cliente> bancoDeDadosCliente = new ArrayList<Cliente>();
+    
+	// Método responsável por resgatar as informações do banco
 	public String resgatarNome(Integer matricula) {
 		// Criou um hashMap que irá simular o banco
 		HashMap<Integer, String> hashClientes = new HashMap<Integer, String>();
@@ -44,6 +47,7 @@ public class ClienteRepository {
 	
 	public ArrayList<Cliente> resgatarClientePorGeneroRepository(Character genero){
 		
+		/*
 		//Criando o simulado de banco de dados
 		ArrayList<Cliente> clientesBanco = new ArrayList<Cliente>();
 		
@@ -52,13 +56,18 @@ public class ClienteRepository {
 		clientesBanco.add(new Cliente("Duan",124,'M'));
 		clientesBanco.add(new Cliente("Fernando",123,'M'));
 		clientesBanco.add(new Cliente("Juliana",123,'F'));
+		*/
 		
 		ArrayList<Cliente> listaRetorno = new ArrayList<Cliente>();
-		for(Cliente clienteBanco : clientesBanco) {
+		for(Cliente clienteBanco : bancoDeDadosCliente) {
 			if(clienteBanco.getSexo().equals(genero)) {
 				listaRetorno.add(clienteBanco);
 			}
 		}
 		return listaRetorno;
+	}
+	
+	public void inserirCliente(Cliente cliente) {
+		this.bancoDeDadosCliente.add(cliente);
 	}
 }

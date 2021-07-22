@@ -1,10 +1,23 @@
 package com.example.demo.models;
 
-public class Cliente {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-	private String nome;
+//Anotação para mapear o meu model com minha tabela
+@Entity(name="cliente")
+public class Cliente {
+	
+	//Anotação para definir que o campo cpf é o id da tabela
+	@Id
 	private Integer cpf;
+	//Anotação para definir que o campo nome é apenas uma coluna
+	@Column
+	private String nome;
+	@Column
 	private Character sexo;
+	@Column
+	private Integer telefone;
 	
 	public Cliente() {
 		
@@ -40,5 +53,11 @@ public class Cliente {
 
 	public void setSexo(Character sexo) {
 		this.sexo = sexo;
+	}
+	public Integer getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(Integer telefone) {
+		this.telefone = telefone;
 	}
 }

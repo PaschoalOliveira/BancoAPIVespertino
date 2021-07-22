@@ -15,19 +15,31 @@ import com.example.demo.models.Cliente;
 import com.example.demo.service.ClienteService;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/v2/clientes")
 //Controller responsável pelo recurso Cliente
-public class ClienteController {
+public class ClienteControllerV2 {
 
 	//Ponto de injeção que permite utilziar o bean nesta classe
 	@Autowired
 	ClienteService clienteService;
 
+	@GetMapping
+	public ArrayList<Cliente> pesquisarTodos() {
+		return clienteService.findAll();
+	}
+	
+	//Criar uma rota para resgatar Cliente por ID
+	@GetMapping("/{cpf}")
+	public Cliente resgataClientePorId(@PathVariable Integer cpf) {
+		return clienteService.findById(cpf);
+	}
+	
 	//Criar uma rota para um método POST
-	@PostMapping
+	@PostMapping("/incluirCliente")
 	public void incluirCliente(@RequestBody Cliente cliente) {
-
-		System.out.println(cliente);
+		
+		clienteService.incluirCliente(cliente);
+		//System.out.println("Inserir cliente");
 	}
 	
 	//Criando nova rota
@@ -49,28 +61,11 @@ public class ClienteController {
 	}
 
 	//Cria a rota para consultar por genero. O genero é passado na url
-	@GetMapping("/genero/{genero}/cpf/{cpf}")
+	@GetMapping("/genero/{genero}")
 	public ArrayList<Cliente> pesquisarClientePorGenero(
-			@PathVariable("genero") Character genero,
-			@PathVariable("cpf") String cpf){
+			@PathVariable("genero") Character genero){
 
 		//Realiza a consulta no service
 		return clienteService.pesquisarClientePorGeneroService(genero);
 	}
-
-	/*
-		@GetMapping("/pesquisaTodos")
-		public ArrayList<Cliente> resgataTodos(){
-			//Lista de Clientes
-			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-
-			//Preenche a lista
-			listaClientes.add(new Cliente("Paschoal","1"));
-			listaClientes.add(new Cliente("Moises","2"));
-			listaClientes.add(new Cliente("Hamilton","3"));
-			//Retorna a lista completa
-			return listaClientes;
-		}
-	 */
-
 }
