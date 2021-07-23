@@ -29,13 +29,13 @@ public class ClienteService {
 		listaRetorno = (ArrayList<Cliente>) clienteRepository2.findAll();
 		return listaRetorno;
 	}
+	
 	//Método responsável por chamar o meu repository e por tratar o meu Optional
 	public Cliente findById(Integer cpf) {
 		Optional<Cliente> oCliente;
 		oCliente = clienteRepository2.findById(cpf);
 		return oCliente.get();
 	}
-	
 	
 	//método responsável pelas regras de negócio realitavas a operação
 	//e por se conectar com a camada Repository

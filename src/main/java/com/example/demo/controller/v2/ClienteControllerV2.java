@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.v2;
 
 import java.util.ArrayList;
 
@@ -15,20 +15,23 @@ import com.example.demo.models.Cliente;
 import com.example.demo.service.ClienteService;
 
 @RestController
-@RequestMapping("/v1/clientes")
+@RequestMapping("/v2/clientes")
 //Controller responsável pelo recurso Cliente
-public class ClienteControllerV1 {
+public class ClienteControllerV2 {
 
 	//Ponto de injeção que permite utilziar o bean nesta classe
 	@Autowired
 	ClienteService clienteService;
+
+	@GetMapping
+	public ArrayList<Cliente> pesquisarTodos() {
+		return clienteService.findAll();
+	}
 	
-	//Criar uma rota para um método POST
-	@PostMapping("/incluirCliente")
-	public void incluirCliente(@RequestBody Cliente cliente) {
-		
-		clienteService.incluirCliente(cliente);
-		//System.out.println("Inserir cliente");
+	//Criar uma rota para resgatar Cliente por ID
+	@GetMapping("/{cpf}")
+	public Cliente resgataClientePorId(@PathVariable Integer cpf) {
+		return clienteService.findById(cpf);
 	}
 	
 	//Criando nova rota
