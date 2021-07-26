@@ -56,7 +56,6 @@ public class ClienteControllerV2 {
 	@GetMapping("/genero/{genero}")
 	public ArrayList<Cliente> pesquisarClientePorGenero(
 			@PathVariable("genero") Character genero){
-
 		//Realiza a consulta no service
 		return clienteService.pesquisarClientePorGeneroService(genero);
 	}

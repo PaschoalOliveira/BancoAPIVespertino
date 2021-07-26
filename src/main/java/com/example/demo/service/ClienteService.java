@@ -54,9 +54,7 @@ public class ClienteService {
 	}
 	//Reponsável por executar regras de negócio e consumir o Repository
 	public ArrayList<Cliente> pesquisarClientePorGeneroService(Character genero) {
-		ArrayList<Cliente> clientes = 
-				clienteRepository.resgatarClientePorGeneroRepository(Character.toUpperCase(genero));
-		
+		ArrayList<Cliente> clientes = clienteRepository2.findByGenero(genero);
 		return clientes;
 	}
 	

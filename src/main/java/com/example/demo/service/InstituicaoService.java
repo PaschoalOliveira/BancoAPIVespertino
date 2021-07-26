@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Cliente;
@@ -22,6 +24,11 @@ public class InstituicaoService {
 	//e consumir o jparepository
 	public ArrayList<InstituicaoFinanceira> findAll(){	
 		return (ArrayList<InstituicaoFinanceira>) instituicaoRepository.findAll();
+	}
+	
+	//Método no service responsável por chamar o Repository e faer o casting para ArrayList
+	public ArrayList<InstituicaoFinanceira> findByName(String nome){
+		return (ArrayList<InstituicaoFinanceira>) instituicaoRepository.findByName(nome);
 	}
 	
 	//Método que busca por id. Retorna um Optional e irá estourar erro caso esteja vazio
@@ -51,8 +58,8 @@ public class InstituicaoService {
 	
 	
 	//Método responsável por realizar somente o update
-	//FAz o update apenas quando existe no banco
-	public void update(InstituicaoFinanceira instituicao) {
+	//Faz o update apenas quando existe no banco
+	public void update(InstituicaoFinanceira instituicao) throws Exception{
 		//Resgata o optional de findById
 		Optional<InstituicaoFinanceira> opInstituicao
 		= instituicaoRepository.findById(instituicao.getIdentifier());
@@ -61,7 +68,9 @@ public class InstituicaoService {
 			//Aso exista ele salva. O PUT deve salvar somente quando existir uma instituicao
 			instituicaoRepository.save(instituicao);			
 		}else {
-			//Diria para o cliente que não salvou pq já existe
+			//Gera uma exceção para indicar que a instituição não existe
+			System.out.println("Não existe instituição com o código");
+			throw new Exception();
 		}
 	}
 	

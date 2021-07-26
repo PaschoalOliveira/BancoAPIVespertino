@@ -3,6 +3,8 @@ package com.example.demo.controller.v1;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.InstituicaoFinanceira;
@@ -27,14 +30,25 @@ public class InstituicaoFinanceiraControllerV1 {
 	
 	//Rota padrão que irá buscar todas
 	@GetMapping
-	public ArrayList<InstituicaoFinanceira> buscarTodos(){
+	public ResponseEntity<ArrayList<InstituicaoFinanceira>> buscarTodos(){
 		
-		return instituicaoService.findAll();
+		//Retorna um ResponseEntity com o retorno do service o Status HTTP
+		return new ResponseEntity<ArrayList<InstituicaoFinanceira>>(instituicaoService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{identifier}")
-	public InstituicaoFinanceira buscarPorId(@PathVariable Integer identifier) {
-		return instituicaoService.findById(identifier);
+	public ResponseEntity<InstituicaoFinanceira> buscarPorId(@PathVariable Integer identifier) {
+		InstituicaoFinanceira instituicaoRetorno = instituicaoService.findById(identifier);
+		return new ResponseEntity<InstituicaoFinanceira>(instituicaoRetorno,HttpStatus.OK);
+	}
+	
+	//Rota para pesquisar por nome. Recebe como parâmetro o nome a ser pesquisado
+	@GetMapping("/nome")
+	public ResponseEntity<ArrayList<InstituicaoFinanceira>> buscarPorNome(@RequestParam String nome){
+		
+		ArrayList<InstituicaoFinanceira> instituicoes = instituicaoService.findByName(nome);
+		//Retorna uma lista com as instituicoes com aquele nome e o status ok
+		return new ResponseEntity<ArrayList<InstituicaoFinanceira>>(instituicoes, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{identifier}")
@@ -43,13 +57,24 @@ public class InstituicaoFinanceiraControllerV1 {
 	}
 
 	@PostMapping
-	public void inserir(@RequestBody InstituicaoFinanceira instituicao) {
+	public ResponseEntity inserir(@RequestBody InstituicaoFinanceira instituicao) {
 		instituicaoService.save(instituicao);
+		return new ResponseEntity(HttpStatus.CREATED);
+		//return ResponseEntity.status(HttpStatus.CREATED).body("Instituição salva com sucesso");
 	}
 	
 	@PutMapping
-	public void atualizar(@RequestBody InstituicaoFinanceira instituicao) {
-		instituicaoService.update(instituicao);
+	public ResponseEntity atualizar(@RequestBody InstituicaoFinanceira instituicao) {
+		
+		try {
+			instituicaoService.update(instituicao);
+			//Retorna o STATUS CODE OK com a instituicao no body da requisição
+			return ResponseEntity.status(HttpStatus.OK).body(instituicao);
+			//return ResponseEntity.ok(instituicao);
+		} catch (Exception e) {
+			//Retorna um erro indicando que a isntituição não existe
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Instituição informada não existe");
+		}
 	}
 	
 }
