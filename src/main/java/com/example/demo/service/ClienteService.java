@@ -44,6 +44,10 @@ public class ClienteService {
 		return nome;
 	}
 	
+	public ArrayList<Cliente> pesquisarPorNumero(String numero){
+		return clienteRepository2.pesquisarPorNumero(numero);
+	}
+	
 	//Responsavel por executar alguma operação sobre clientes
 	//e resgatar os dados no Repository
 	public Cliente pesquisarClienteService(Integer cpf) {

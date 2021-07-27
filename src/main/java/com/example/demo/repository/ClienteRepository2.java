@@ -13,4 +13,9 @@ public interface ClienteRepository2 extends JpaRepository<Cliente,Integer>{
 
 	@Query("SELECT c FROM cliente c WHERE sexo LIKE ?1")
 	public ArrayList<Cliente> findByGenero(Character genero);
+	
+	//Consulta que utiliza do || para concatenar % com o valor do parâmetro para 
+	//pesquisar por qq parte do telefone
+	@Query("SELECT c FROM cliente c WHERE telefone LIKE '%' || ?1 || '%' ")
+	public ArrayList<Cliente> pesquisarPorNumero(String numero);
 }

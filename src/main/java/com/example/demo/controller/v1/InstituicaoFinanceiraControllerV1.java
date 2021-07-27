@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.InstituicaoFinanceira;
 import com.example.demo.service.InstituicaoService;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 //Define um bean rest controller que vai ser instanciado pelo Spring
 @RestController
 //Criamos a rota para a nossa classe/cardapio
@@ -63,6 +66,12 @@ public class InstituicaoFinanceiraControllerV1 {
 		//return ResponseEntity.status(HttpStatus.CREATED).body("Instituição salva com sucesso");
 	}
 	
+	//Anotação responsável por definir os retornos dos erros 
+	//que serão visualizados no Swagger
+	@ApiResponses(value = {
+		    @ApiResponse(code = 200, message = "Atualizou a instituição"),
+		    @ApiResponse(code = 422, message = "Instituição informada não existe"),
+		})
 	@PutMapping
 	public ResponseEntity atualizar(@RequestBody InstituicaoFinanceira instituicao) {
 		

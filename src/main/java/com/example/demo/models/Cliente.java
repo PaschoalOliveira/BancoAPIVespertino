@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Anotação para mapear o meu model com minha tabela
 @Entity(name="cliente")
 public class Cliente {
