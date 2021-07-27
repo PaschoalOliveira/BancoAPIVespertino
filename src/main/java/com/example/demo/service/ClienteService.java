@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Cliente;
+import com.example.demo.models.Conta;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.ClienteRepository2;
 
@@ -34,6 +35,14 @@ public class ClienteService {
 	public Cliente findById(Integer cpf) {
 		Optional<Cliente> oCliente;
 		oCliente = clienteRepository2.findById(cpf);
+		
+		/*Trecho de código
+		 * que demonstra como seria se tivéssemos somente cpf em conta
+		Conta conta = new Conta();
+		Integer cpfRetorno = conta.getCpf();
+		Cliente cliente = clienteRepository2.findById(cpfRetorno);
+		*/
+		
 		return oCliente.get();
 	}
 	
