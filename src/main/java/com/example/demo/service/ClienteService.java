@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Cliente;
@@ -30,19 +31,12 @@ public class ClienteService {
 	
 	//Método responsável por fazer o casting e consultar o método
 	//de JPaRepository
-	public ArrayList<Cliente> findAll(){
+	public ArrayList<Cliente> findAll(int page, int size){
 		ArrayList<Cliente> listaRetorno = new ArrayList<Cliente>();
+		
+		PageRequest.of(page, size);
 		listaRetorno = (ArrayList<Cliente>) clienteRepository2.findAll();
 
-		for(Cliente cliente : listaRetorno) {
-		
-			//Trecho 2
-			for(Conta conta : cliente.getContas()) {
-				System.out.println(conta.getSaldo());
-			}
-		}
-		
-		
 		return listaRetorno;
 	}
 	

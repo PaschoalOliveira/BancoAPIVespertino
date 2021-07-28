@@ -27,8 +27,10 @@ public class ClienteControllerV2 {
 
 	@ApiOperation(value = "Retorna uma lista de pessoas")
 	@GetMapping
-	public ArrayList<Cliente> pesquisarTodos() {
-		return clienteService.findAll();
+	public ArrayList<Cliente> pesquisarTodos(
+			@RequestParam int page,
+			@RequestParam int size) {
+		return clienteService.findAll(page, size);
 	}
 	
 	@ApiOperation(value = "Retrona uma slita de clientes por ID")
