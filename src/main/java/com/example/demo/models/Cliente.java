@@ -1,10 +1,12 @@
 package com.example.demo.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToMany;
 
 //Anotação para mapear o meu model com minha tabela
 @Entity(name="cliente")
@@ -20,6 +22,11 @@ public class Cliente {
 	private Character sexo;
 	@Column
 	private Integer telefone;
+	
+	//Anotação referente a definição de quem detém o mapeamento.
+	//Nesse caso é a PROPRIEDADE cliente de Conta
+	@OneToMany(mappedBy="cliente")
+	List<Conta> contas;
 	
 	public Cliente() {
 		
@@ -61,5 +68,11 @@ public class Cliente {
 	}
 	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
+	}
+	public List<Conta> getContas() {
+		return contas;
+	}
+	public void setContas(List<Conta> contas) {
+		this.contas = contas;
 	}
 }

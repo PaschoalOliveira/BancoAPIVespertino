@@ -10,6 +10,7 @@ import com.example.demo.models.Cliente;
 import com.example.demo.models.Conta;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.ClienteRepository2;
+import com.example.demo.repository.ContaRepository;
 
 //Anotação que transforma esta classe em um Bean que será gerenciado 
 //pelo Spring Framework
@@ -23,11 +24,25 @@ public class ClienteService {
 	@Autowired
 	ClienteRepository2 clienteRepository2;
 	
+	@Autowired
+	ContaRepository contaRepository;
+	
+	
 	//Método responsável por fazer o casting e consultar o método
 	//de JPaRepository
 	public ArrayList<Cliente> findAll(){
 		ArrayList<Cliente> listaRetorno = new ArrayList<Cliente>();
 		listaRetorno = (ArrayList<Cliente>) clienteRepository2.findAll();
+
+		for(Cliente cliente : listaRetorno) {
+		
+			//Trecho 2
+			for(Conta conta : cliente.getContas()) {
+				System.out.println(conta.getSaldo());
+			}
+		}
+		
+		
 		return listaRetorno;
 	}
 	

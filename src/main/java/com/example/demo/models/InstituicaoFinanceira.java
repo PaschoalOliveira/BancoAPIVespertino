@@ -1,10 +1,13 @@
 package com.example.demo.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +26,9 @@ public class InstituicaoFinanceira {
 	
 	@Column(name="nome")
 	private String name;
+	
+	@OneToMany(mappedBy = "instituicao")
+	private List<Conta> contas;
 	
 	//Anotação para indicar que este campo não será mapeado
 	@Transient
@@ -56,5 +62,13 @@ public class InstituicaoFinanceira {
 
 	public void setsId(String sId) {
 		this.sId = sId;
+	}
+
+	public List<Conta> getContas() {
+		return contas;
+	}
+
+	public void setContas(List<Conta> contas) {
+		this.contas = contas;
 	}
 }
