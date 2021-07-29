@@ -36,7 +36,6 @@ public class Conta {
 	
 	@Transient
 	private String uriCliente;
-	
 	public String getUriCliente() {
 		return new UtilsUrl().getUri("/v2/clientes", this.getCliente().getCpf()).toString();
 	}

@@ -30,6 +30,9 @@ public class InstituicaoFinanceira {
 	@OneToMany(mappedBy = "instituicao")
 	private List<Conta> contas;
 	
+	@OneToMany(mappedBy="instituicao")
+	private List<Agencia> agencias;
+	
 	//Anotação para indicar que este campo não será mapeado
 	@Transient
 	//Anotação que indicará que não aparecerá no JSON
@@ -70,5 +73,13 @@ public class InstituicaoFinanceira {
 
 	public void setContas(List<Conta> contas) {
 		this.contas = contas;
+	}
+
+	public List<Agencia> getAgencias() {
+		return agencias;
+	}
+
+	public void setAgencias(List<Agencia> agencias) {
+		this.agencias = agencias;
 	}
 }
