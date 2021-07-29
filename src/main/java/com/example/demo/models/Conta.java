@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.example.demo.utils.UtilsUrl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -32,6 +33,13 @@ public class Conta {
 	//Anotação para que a propriedade contas de CLIENTE seja ignorada
 	@JsonIgnoreProperties("contas")
 	private Cliente cliente;
+	
+	@Transient
+	private String uriCliente;
+	
+	public String getUriCliente() {
+		return new UtilsUrl().getUri("/v2/clientes", this.getCliente().getCpf()).toString();
+	}
 	
 	@ManyToOne
 	@JoinColumn(name="id_instituicao")
