@@ -27,11 +27,13 @@ public class AgenciaControllerV1 {
 			@RequestParam(required = false, defaultValue = "0") Integer numeroPagina,
 			@RequestParam(required = false, defaultValue = "2") Integer itensPorPagina,
 			@RequestParam(required = false, defaultValue = "nome") String campoOrdenacao,
-			@RequestParam(required = false, defaultValue = "ASC") String direcaoOrdenacao
+			@RequestParam(required = false, defaultValue = "ASC") String direcaoOrdenacao,
+			@RequestParam(required=false) Integer id,
+			@RequestParam(required=false) String nome
 			){
 		//Chama o service passando os parâmetros
 		Page<Agencia> agencias = agenciaService.buscarTodos
-				(numeroPagina, itensPorPagina, campoOrdenacao,direcaoOrdenacao);
+				(numeroPagina, itensPorPagina, campoOrdenacao,direcaoOrdenacao, id, nome);
 		return new ResponseEntity<Page<Agencia>>(agencias,HttpStatus.OK);
 	}
 	
@@ -41,7 +43,7 @@ public class AgenciaControllerV1 {
 			@RequestParam(required=false) String nome
 			){
 		ArrayList<Agencia> agencias = agenciaService
-				.buscarPorFiltro(id, nome);
+				.buscarPorFiltroSpecification(id, nome);
 		
 		return new ResponseEntity<ArrayList<Agencia>>(agencias, HttpStatus.OK);
 	}
