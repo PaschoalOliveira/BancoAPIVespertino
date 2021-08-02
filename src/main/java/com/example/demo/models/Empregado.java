@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Empregado {
 	@JsonIgnoreProperties("empregados")
 	private Agencia agencia;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="empregado_dependente",
 			joinColumns = @JoinColumn(name = "cpf_empregado"),
 			inverseJoinColumns = @JoinColumn(name="id_dependente"))

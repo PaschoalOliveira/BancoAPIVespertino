@@ -20,7 +20,6 @@ public class EmpregadoService {
 	}
 	
 	public void save(Empregado e){
-		
 		empregadoRepository.save(e);
 	}
 }

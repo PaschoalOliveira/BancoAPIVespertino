@@ -52,8 +52,10 @@ public class InstituicaoService {
 	
 	//Chama o save do repositório responsável por
 	//inserir ou atualizar
-	public void save(InstituicaoFinanceira instituicao) {
-		instituicaoRepository.save(instituicao);
+	public InstituicaoFinanceira save(InstituicaoFinanceira instituicao) {
+		
+		// O save retorna a instituicao com o código gerado pelo mysql IDENTITY AUTO_INCREMENT
+		return instituicaoRepository.save(instituicao);
 	}
 	
 	
@@ -63,14 +65,14 @@ public class InstituicaoService {
 		//Resgata o optional de findById
 		Optional<InstituicaoFinanceira> opInstituicao
 		= instituicaoRepository.findById(instituicao.getIdentifier());
-		//VErifica se o optional possui uma isntituicao em seu involucro
+		//Verifica se o optional possui uma isntituicao em seu involucro
 		if(opInstituicao.isPresent()) {
 			//Aso exista ele salva. O PUT deve salvar somente quando existir uma instituicao
 			instituicaoRepository.save(instituicao);			
 		}else {
 			//Gera uma exceção para indicar que a instituição não existe
-			System.out.println("Não existe instituição com o código");
-			throw new Exception();
+			//System.out.println("Não existe instituição com o código");
+			throw new Exception("Não existe instituição com o código informado");
 		}
 	}
 	
