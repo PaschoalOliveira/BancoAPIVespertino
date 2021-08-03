@@ -25,7 +25,7 @@ public class Cliente {
 	
 	//Anotação referente a definição de quem detém o mapeamento.
 	//Nesse caso é a PROPRIEDADE cliente de Conta
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente", fetch = FetchType.EAGER)
 	List<Conta> contas;
 	
 	public Cliente() {

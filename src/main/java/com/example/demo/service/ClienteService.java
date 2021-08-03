@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.ClienteDTO;
 import com.example.demo.models.Cliente;
-import com.example.demo.models.Conta;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.ClienteRepository2;
 import com.example.demo.repository.ContaRepository;
@@ -26,6 +26,9 @@ public class ClienteService {
 	ClienteRepository2 clienteRepository2;
 	
 	@Autowired
+	CryptoService cryptoService;
+	
+	@Autowired
 	ContaRepository contaRepository;
 	
 	
@@ -41,9 +44,20 @@ public class ClienteService {
 	}
 	
 	//Método responsável por chamar o meu repository e por tratar o meu Optional
-	public Cliente findById(Integer cpf) {
+	public ClienteDTO findById(Integer cpf) {
 		Optional<Cliente> oCliente;
 		oCliente = clienteRepository2.findById(cpf);
+		
+		Cliente cliente = oCliente.get();
+		
+		Double dCotacaoBitcoin = cryptoService.getBitCoinPrice();
+		/*
+		for(Conta conta : cliente.getContas()) {
+			conta.setSaldoBitCoin(conta.getSaldoBitCoin() * dCotacaoBitcoin);
+		}
+		*/
+		cliente.getContas().forEach(c -> 
+		c.setSaldoBitCoin(c.getSaldoBitCoin() * dCotacaoBitcoin));
 		
 		/*Trecho de código
 		 * que demonstra como seria se tivéssemos somente cpf em conta
@@ -51,8 +65,10 @@ public class ClienteService {
 		Integer cpfRetorno = conta.getCpf();
 		Cliente cliente = clienteRepository2.findById(cpfRetorno);
 		*/
+		ClienteDTO clienteDto = new ClienteDTO();
+		clienteDto.createClienteDto(cliente);
 		
-		return oCliente.get();
+		return clienteDto;
 	}
 	
 	//método responsável pelas regras de negócio realitavas a operação

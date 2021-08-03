@@ -24,7 +24,7 @@ public class InstituicaoFinanceira {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer identifier;
 	
-	@Column(name="nome")
+	@Column(name="nome", nullable=false)
 	private String name;
 	
 	@OneToMany(mappedBy = "instituicao")

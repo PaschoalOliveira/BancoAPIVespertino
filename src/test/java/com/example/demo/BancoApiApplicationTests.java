@@ -1,18 +1,25 @@
 package com.example.demo;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.example.demo.dto.ClienteDTO;
 import com.example.demo.models.Agencia;
 import com.example.demo.models.InstituicaoFinanceira;
+import com.example.demo.service.ClienteService;
+import com.example.demo.service.CryptoService;
 import com.example.demo.service.InstituicaoService;
 
 @SpringBootTest
@@ -21,9 +28,30 @@ class BancoApiApplicationTests {
 	@Autowired
 	InstituicaoService instituicaoService;
 	
+	@Autowired 
+	ClienteService clienteService;
+	
+	@MockBean
+	CryptoService cryptoService;
+	
+	@BeforeEach
+	void setup() {
+		when(cryptoService.getBitCoinPrice()).thenReturn(3.5);
+	}
+	
+	//DADO que eu tenho um cliente com um cpf que existe
+	//QUANDO eu consultar por este cpf
+	//ENTÃO não deve retornar um cliente com a propriedade nome nula
+	@Test
+	void verificarRetornoClientePorNome() {
+		ClienteDTO clienteDto = clienteService.findById(123457);
+		
+		assertNotNull(clienteDto.getNome());
+	}
+	
 	//DADO que eu tenho uma instituição com o nome
 	//QUANDO eu inserir essa instituição
-	//ENTÃO é retornado uma instituicao com um identificador
+	//ENTÃO é o identificador deve ser retornado e não nulo
 	@Test
 	void inserirInstituicaoFinanceira() {
 		

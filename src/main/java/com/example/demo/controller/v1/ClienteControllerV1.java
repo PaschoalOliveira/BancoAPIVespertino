@@ -3,6 +3,8 @@ package com.example.demo.controller.v1;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.ClienteDTO;
 import com.example.demo.models.Cliente;
 import com.example.demo.service.ClienteService;
 
@@ -22,6 +25,13 @@ public class ClienteControllerV1 {
 	//Ponto de injeção que permite utilziar o bean nesta classe
 	@Autowired
 	ClienteService clienteService;
+	
+	@GetMapping("/{cpf}")
+	public ResponseEntity<ClienteDTO> buscarClientePorCpf(
+			@PathVariable Integer cpf){
+		
+		return new ResponseEntity<ClienteDTO>(clienteService.findById(cpf), HttpStatus.OK);
+	}
 	
 	//Criar uma rota para um método POST
 	@PostMapping("/incluirCliente")

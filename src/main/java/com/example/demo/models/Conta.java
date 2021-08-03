@@ -26,6 +26,9 @@ public class Conta {
 	@Column
 	private Double saldo;
 	
+	@Column
+	private Double saldoBitCoin;
+	
 	//Anotação para definir que há muitas contas para um cliente
 	@ManyToOne
 	//Anotação que define a coluna responsável pela junção
@@ -77,6 +80,14 @@ public class Conta {
 
 	public void setInstituicao(InstituicaoFinanceira instituicao) {
 		this.instituicao = instituicao;
+	}
+
+	public Double getSaldoBitCoin() {
+		return saldoBitCoin;
+	}
+
+	public void setSaldoBitCoin(Double saldoBitCoin) {
+		this.saldoBitCoin = saldoBitCoin;
 	}
 
 	

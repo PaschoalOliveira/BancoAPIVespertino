@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.ClienteDTO;
 import com.example.demo.models.Cliente;
 import com.example.demo.service.ClienteService;
 
@@ -36,7 +37,7 @@ public class ClienteControllerV2 {
 	@ApiOperation(value = "Retrona uma slita de clientes por ID")
 	//Criar uma rota para resgatar Cliente por ID
 	@GetMapping("/{cpf}")
-	public Cliente resgataClientePorId(@PathVariable Integer cpf) {
+	public ClienteDTO resgataClientePorId(@PathVariable Integer cpf) {
 		return clienteService.findById(cpf);
 	}
 	
