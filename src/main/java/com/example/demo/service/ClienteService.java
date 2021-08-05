@@ -67,6 +67,7 @@ public class ClienteService {
 		*/
 		ClienteDTO clienteDto = new ClienteDTO();
 		clienteDto.createClienteDto(cliente);
+		//ClienteDTO clienteDto = ClienteDTO.createClienteDtoWithModelMapper(cliente);
 		
 		return clienteDto;
 	}

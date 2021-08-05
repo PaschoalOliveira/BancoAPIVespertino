@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.EmpregadoDTO;
 import com.example.demo.models.Empregado;
 import com.example.demo.repository.EmpregadoRepository;
 
@@ -17,6 +18,15 @@ public class EmpregadoService {
 	public ArrayList<Empregado> findAll(){
 	
 		return (ArrayList<Empregado>)empregadoRepository.findAll();
+	}
+	
+	public EmpregadoDTO findById(Integer cpf){
+		
+		Empregado empregado = empregadoRepository.findById(cpf).get();
+		
+		EmpregadoDTO empregadoDto = new EmpregadoDTO();
+		empregadoDto.createEmpregadoDto(empregado);
+		return empregadoDto;
 	}
 	
 	public void save(Empregado e){

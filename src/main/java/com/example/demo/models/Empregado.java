@@ -40,6 +40,7 @@ public class Empregado {
 	@JoinTable(name="empregado_dependente",
 			joinColumns = @JoinColumn(name = "cpf_empregado"),
 			inverseJoinColumns = @JoinColumn(name="id_dependente"))
+	@JsonIgnoreProperties("empregados")
 	private List<Dependente> dependentes;
 	
 }
