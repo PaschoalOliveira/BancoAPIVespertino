@@ -10,10 +10,12 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.dto.ClienteDTO;
 import com.example.demo.models.Agencia;
@@ -23,6 +25,7 @@ import com.example.demo.service.CryptoService;
 import com.example.demo.service.InstituicaoService;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 class BancoApiApplicationTests {
 
 	@Autowired
