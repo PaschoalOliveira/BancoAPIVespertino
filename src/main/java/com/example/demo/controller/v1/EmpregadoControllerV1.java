@@ -24,9 +24,9 @@ public class EmpregadoControllerV1 {
 	EmpregadoService empregadoService;
 	
 	@GetMapping
-	public ResponseEntity<ArrayList<Empregado>> buscarTodos(){
+	public ResponseEntity<ArrayList<EmpregadoDTO>> buscarTodos(){
 		
-		return new ResponseEntity<ArrayList<Empregado>>(
+		return new ResponseEntity<ArrayList<EmpregadoDTO>>(
 				empregadoService.findAll(),HttpStatus.OK);
 	}
 	

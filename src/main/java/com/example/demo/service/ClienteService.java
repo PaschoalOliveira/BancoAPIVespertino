@@ -66,7 +66,7 @@ public class ClienteService {
 		Cliente cliente = clienteRepository2.findById(cpfRetorno);
 		*/
 		ClienteDTO clienteDto = new ClienteDTO();
-		clienteDto.createClienteDto(cliente);
+		clienteDto = clienteDto.createClienteDtoWithModelMapper(cliente);
 		//ClienteDTO clienteDto = ClienteDTO.createClienteDtoWithModelMapper(cliente);
 		
 		return clienteDto;

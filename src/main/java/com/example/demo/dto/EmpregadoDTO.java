@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.models.Agencia;
 import com.example.demo.models.Dependente;
 import com.example.demo.models.Empregado;
 

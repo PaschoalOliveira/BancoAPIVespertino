@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 
 import com.example.demo.models.Cliente;
 import com.example.demo.models.Conta;
@@ -70,7 +71,11 @@ public class ClienteDTO {
 		    }
 		};
 		
-		modelMapper.addConverter(converter);
+		TypeMap<Cliente, ClienteDTO> typeMap = modelMapper.createTypeMap(Cliente.class, ClienteDTO.class);
+		
+		typeMap.setPostConverter(converter);
+		
+		//modelMapper.addConverter(converter);
 		
 		return modelMapper.map(cliente, ClienteDTO.class);
 	}
