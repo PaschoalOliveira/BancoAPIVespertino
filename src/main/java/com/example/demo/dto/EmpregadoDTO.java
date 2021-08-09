@@ -20,12 +20,17 @@ public class EmpregadoDTO {
 	
 	private String nomeAgencia;
 	
+	private String nomeInstituicao;
+	
 	private String nomesDependentes;
 	
 	public void createEmpregadoDto(Empregado empregado) {
 		this.setCpf(empregado.getCpf());
 		this.setNome(empregado.getNome());
 		this.setNomeAgencia(empregado.getAgencia() != null ? empregado.getAgencia().getNome() : "");
+		
+		this.setNomeInstituicao(empregado.getAgencia() != null && empregado.getAgencia().getInstituicao() != null? 
+				empregado.getAgencia().getInstituicao().getName() : "");
 		
 		String nomeDependentesTemp = "";
 		

@@ -24,6 +24,11 @@ import lombok.Setter;
 // Dentro tela teremos o método toPredicate responsável por criar as minhas restrições
 public class AgenciaSpecification implements Specification<Agencia>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	
 	private String nome;
