@@ -75,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		*/
 		
 		//Forma de se autenticar usando o JsonWebToken
+		
 		http.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
