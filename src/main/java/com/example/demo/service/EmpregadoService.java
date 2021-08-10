@@ -2,13 +2,13 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmpregadoDTO;
@@ -30,6 +30,7 @@ public class EmpregadoService {
 		
 		Page<Empregado> empregados = (Page<Empregado>)empregadoRepository.findAll(specEmpregado, pageRequest);
 		
+		/*
 		ArrayList<EmpregadoDTO> empregadosDTO = new ArrayList<EmpregadoDTO>();
 		for(Empregado empregado : empregados) {
 			EmpregadoDTO emprDTO = new EmpregadoDTO();
@@ -44,8 +45,15 @@ public class EmpregadoService {
 		final int start = (int)pageRequest2.getOffset();
 		final int end = Math.min((start + pageRequest2.getPageSize()), empregadosDTO.size());
 		final Page<EmpregadoDTO> pageEmpregadosDTO = new PageImpl<>(empregadosDTO.subList(start, end), pageRequest2, empregadosDTO.size());
+		*/
 		
-		return pageEmpregadosDTO;
+		int totalElements = (int) empregados.getTotalElements();
+        return new PageImpl<EmpregadoDTO>(empregados
+                .stream()
+                .map(empr -> new EmpregadoDTO().createEmpregadoDto(empr))
+                .collect(Collectors.toList()), pageRequest, totalElements);
+        
+		//return pageEmpregadosDTO;
 	}
 	
 	public EmpregadoDTO findById(Integer cpf){

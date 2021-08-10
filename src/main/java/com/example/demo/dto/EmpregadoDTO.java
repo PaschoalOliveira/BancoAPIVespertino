@@ -24,12 +24,14 @@ public class EmpregadoDTO {
 	
 	private String nomesDependentes;
 	
-	public void createEmpregadoDto(Empregado empregado) {
-		this.setCpf(empregado.getCpf());
-		this.setNome(empregado.getNome());
-		this.setNomeAgencia(empregado.getAgencia() != null ? empregado.getAgencia().getNome() : "");
+	public EmpregadoDTO createEmpregadoDto(Empregado empregado) {
+		EmpregadoDTO empregadoDTO = new EmpregadoDTO();
 		
-		this.setNomeInstituicao(empregado.getAgencia() != null && empregado.getAgencia().getInstituicao() != null? 
+		empregadoDTO.setCpf(empregado.getCpf());
+		empregadoDTO.setNome(empregado.getNome());
+		empregadoDTO.setNomeAgencia(empregado.getAgencia() != null ? empregado.getAgencia().getNome() : "");
+		
+		empregadoDTO.setNomeInstituicao(empregado.getAgencia() != null && empregado.getAgencia().getInstituicao() != null? 
 				empregado.getAgencia().getInstituicao().getName() : "");
 		
 		String nomeDependentesTemp = "";
@@ -40,6 +42,7 @@ public class EmpregadoDTO {
 			nomeDependentesTemp = nomeDependentesTemp.concat(", ");
 		}
 		
-		this.setNomesDependentes(nomeDependentesTemp);
+		empregadoDTO.setNomesDependentes(nomeDependentesTemp);
+		return empregadoDTO;
 	}
 }
