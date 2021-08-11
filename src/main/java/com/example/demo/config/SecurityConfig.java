@@ -65,17 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		// Forma  ser feita sem jwt e com basic auth
-		/*
+		
 		http.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/v1/**").hasRole("USUARIO")
 		.and()
 		.httpBasic();
-		*/
 		
 		//Forma de se autenticar usando o JsonWebToken
-		
+		/*
 		http.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
@@ -85,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
 		.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-		
+		*/
 	}
 	
 }

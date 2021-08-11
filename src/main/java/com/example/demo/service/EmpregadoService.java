@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,30 +29,23 @@ public class EmpregadoService {
 
 		EmpregadoSpecification specEmpregado = new EmpregadoSpecification(cpf,nome,nomeAgencia);
 		
-		Page<Empregado> empregados = (Page<Empregado>)empregadoRepository.findAll(specEmpregado, pageRequest);
+		Page<Empregado> pageEmpregados = (Page<Empregado>)empregadoRepository.findAll(specEmpregado, pageRequest);
+		
 		
 		/*
-		ArrayList<EmpregadoDTO> empregadosDTO = new ArrayList<EmpregadoDTO>();
-		for(Empregado empregado : empregados) {
-			EmpregadoDTO emprDTO = new EmpregadoDTO();
-			emprDTO.createEmpregadoDto(empregado);
-			empregadosDTO.add(emprDTO);
+		ArrayList<EmpregadoDTO> empregadosDTOSemLambda = new ArrayList<EmpregadoDTO>();
+		for(Empregado empregado : pageEmpregados) {
+			EmpregadoDTO emprDTO = new EmpregadoDTO().createEmpregadoDto(empregado);
+			empregadosDTOSemLambda.add(emprDTO);
 		}
-		
-		
-		//Transforma uma lista de empregadoDTO em um Page<EmpregadoDTO>
-		PageRequest pageRequest2 = PageRequest.of(numeroPagina, qtdItensPagina,Sort.Direction.valueOf(direcaoOrdenacao),campoOrdem);
-
-		final int start = (int)pageRequest2.getOffset();
-		final int end = Math.min((start + pageRequest2.getPageSize()), empregadosDTO.size());
-		final Page<EmpregadoDTO> pageEmpregadosDTO = new PageImpl<>(empregadosDTO.subList(start, end), pageRequest2, empregadosDTO.size());
 		*/
 		
-		int totalElements = (int) empregados.getTotalElements();
-        return new PageImpl<EmpregadoDTO>(empregados
-                .stream()
-                .map(empr -> new EmpregadoDTO().createEmpregadoDto(empr))
-                .collect(Collectors.toList()), pageRequest, totalElements);
+		List<EmpregadoDTO> empregadosDto = pageEmpregados.stream()
+				.map(e -> new EmpregadoDTO().createEmpregadoDto(e)).collect(Collectors.toList());
+		
+		int totalElements = (int) pageEmpregados.getTotalElements();
+		
+        return new PageImpl<EmpregadoDTO>(empregadosDto, pageRequest, totalElements);
         
 		//return pageEmpregadosDTO;
 	}

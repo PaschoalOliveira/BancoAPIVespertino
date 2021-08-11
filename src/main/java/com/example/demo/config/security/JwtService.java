@@ -74,19 +74,4 @@ public class JwtService {
 		
 	}
 	
-	//Método responsável por testar a classe de geração de token
-	public static void main(String[] args) {
-		ConfigurableApplicationContext contexto = SpringApplication.run(BancoApiApplication.class);
-		
-		JwtService jwtService= contexto.getBean(JwtService.class);
-		UsuarioApi usuarioApi = new UsuarioApi();
-		usuarioApi.setLogin("usuario2");
-		String token = jwtService.gerarToken(usuarioApi);
-		System.out.println(token);
-		
-		System.out.println(jwtService.tokenValido(token));
-		
-		System.out.println(jwtService.obterLoginUsuario(token));
-	}
-	
 }
