@@ -19,7 +19,7 @@ public class EmpregadoTests {
 	//DADO que eu tenha um empregado com cpf existente
 	//QUANDO eu buscar por este cpf
 	//ENTÃO deve retornar um empregado com o nome não nulo
-	@Test
+//	@Test
 	public void verificarEmpregadoPorCPF() {
 		EmpregadoDTO empregadoDTO = empregadoService.findById(33);
 		assertNotNull(empregadoDTO.getNome());

@@ -45,7 +45,7 @@ class BancoApiApplicationTests {
 	//DADO que eu tenho um cliente com um cpf que existe
 	//QUANDO eu consultar por este cpf
 	//ENTÃO não deve retornar um cliente com a propriedade nome nula
-	@Test
+//	@Test
 	void verificarRetornoClientePorNome() {
 		ClienteDTO clienteDto = clienteService.findById(123457);
 		
@@ -55,7 +55,7 @@ class BancoApiApplicationTests {
 	//DADO que eu tenho uma instituição com o nome
 	//QUANDO eu inserir essa instituição
 	//ENTÃO é o identificador deve ser retornado e não nulo
-	@Test
+//	@Test
 	void inserirInstituicaoFinanceira() {
 		
 		InstituicaoFinanceira instituicao = new InstituicaoFinanceira();
@@ -76,7 +76,7 @@ class BancoApiApplicationTests {
 	//DADO que eu tenho uma instituição sem o nome
 	//QUANDO eu inserir essa instituição
 	//ENTÃO é retornado uma exceção DataIntegrityViolationException
-	@Test
+//	@Test
 	void inserirInstituicaoFinanceiraSemNome() {
 		
 		InstituicaoFinanceira instituicao = new InstituicaoFinanceira();
@@ -90,7 +90,7 @@ class BancoApiApplicationTests {
 	//DADO que eu tenho uma instituição não salva
 	//QUANDO realizar uma atualização
 	//ENTÃO é retornada uma exceção com a mensagem "Não existe instituição com o código informado"
-	@Test
+//	@Test
 	void  atualizarInstituicaoFinanceiraNaoExistente() {
 		
 		InstituicaoFinanceira instituicao = new InstituicaoFinanceira();

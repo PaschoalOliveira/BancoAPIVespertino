@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,10 @@ public class EmpregadoService {
 	@Autowired
 	EmpregadoRepository empregadoRepository;
 	
+	@Autowired
+	CacheManager cacheManager;
+	
+	@Cacheable("empregados")
 	public Page<EmpregadoDTO> findAll(Integer cpf, String nome, String nomeAgencia, Integer qtdItensPagina, Integer numeroPagina, String direcaoOrdenacao, String campoOrdem){
 	
 		PageRequest pageRequest = PageRequest.of(numeroPagina, qtdItensPagina,Sort.Direction.valueOf(direcaoOrdenacao),campoOrdem);
@@ -65,5 +70,11 @@ public class EmpregadoService {
 	
 	public void save(Empregado e){
 		empregadoRepository.save(e);
+		
+	}
+	
+	public void clearCacheEmpregados() {
+		cacheManager.getCache("empregados").clear();
+		System.out.println("Limpando cache...");
 	}
 }

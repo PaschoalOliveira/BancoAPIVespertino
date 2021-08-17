@@ -1,6 +1,7 @@
 package com.example.demo.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,11 @@ public class EmpregadoControllerV1 {
 			@RequestParam(required = false) String nome,
 			@RequestParam(required = false) String nomeAgencia,
 			@RequestParam(required = false, defaultValue = "5") Integer qtdItensPagina,
-			@RequestParam(required = false, defaultValue = "1") Integer numeroPagina,
+			@RequestParam(required = false, defaultValue = "0") Integer numeroPagina,
 			@RequestParam(required = false, defaultValue = "ASC") String direcaoOrdenacao,
 			@RequestParam(required = false, defaultValue = "nome") String campoOrdem){
 		
+		//return empregadoService.findAll(cpf,nome,nomeAgencia,qtdItensPagina,numeroPagina,direcaoOrdenacao,campoOrdem);
 		return new ResponseEntity<Page<EmpregadoDTO>>(
 				empregadoService.findAll(cpf,nome,nomeAgencia,qtdItensPagina,numeroPagina,direcaoOrdenacao,campoOrdem),HttpStatus.OK);
 	}
@@ -53,4 +55,8 @@ public class EmpregadoControllerV1 {
 		empregadoService.save(e);
 		return new ResponseEntity<String>("ok",HttpStatus.OK);
 	}
+	
+	@CacheEvict(value = "empregado", allEntries = true)
+	@GetMapping("/evict")
+	public void evictAllCacheValues() {}
 }

@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.io.Serializable;
+
 import com.example.demo.models.Dependente;
 import com.example.demo.models.Empregado;
 
@@ -12,9 +14,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmpregadoDTO {
+public class EmpregadoDTO implements Serializable {
 
-    private Integer cpf;
+	private static final long serialVersionUID = -541208071814146459L;
+
+	private Integer cpf;
 	
 	private String nome;
 	
