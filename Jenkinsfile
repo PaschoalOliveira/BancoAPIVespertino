@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-				sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
+		#!/bin/sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
             }
         }
         stage('Test') {
