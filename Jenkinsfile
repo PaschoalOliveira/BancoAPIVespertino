@@ -1,11 +1,9 @@
 pipeline {
-    agent any
+	  agent {
+	    docker 'circleci/node:9.3-stretch-browsers'
+	  }
 
     stages {
-	     stage('Initialize'){
-	        def dockerHome = tool 'myDocker'
-	        env.PATH = "${dockerHome}/bin:${env.PATH}"
-	    }
         stage('Build') {
             steps {
                 echo 'Building..'
