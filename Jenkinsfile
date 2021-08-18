@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-	script{
-		RUN apk update && apk add bash
-	}
-	
     stages {
         stage('Build') {
             steps {
