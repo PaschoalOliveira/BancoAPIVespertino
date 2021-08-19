@@ -12,6 +12,11 @@ pipeline {
                 echo 'Testing..'
             }
         }
+        stage("Build") {
+            agent {
+                docker { image "hello-world" }
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
