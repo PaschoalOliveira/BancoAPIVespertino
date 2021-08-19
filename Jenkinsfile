@@ -2,7 +2,7 @@ pipeline {
     agent any
    
     stages {
-       stage('Update dependencies version') {
+       stage('Update d ependencies version') {
 		agent {
 		    docker {
 			image 'maven'
