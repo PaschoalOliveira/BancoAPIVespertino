@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Test') {
             agent {
-                docker { image "hello-world" }
+                docker { image "hello-world" } 
             }
             steps {
                 echo 'Testing..'
