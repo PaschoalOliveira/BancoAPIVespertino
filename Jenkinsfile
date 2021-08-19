@@ -8,13 +8,11 @@ pipeline {
    
     stages {
         stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage("Build") {
             agent {
                 docker { image "hello-world" }
+            }
+            steps {
+                echo 'Testing..'
             }
         }
         stage('Deploy') {
