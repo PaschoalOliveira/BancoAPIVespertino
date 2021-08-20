@@ -2,7 +2,7 @@ pipeline {
 2
     environment { 
 3
-        registry = "YourDockerhubAccount/YourRepository" 
+        registry = "YourDockerhubAccount/YourRepository"  
 4
         registryCredential = 'dockerhub_id' 
 5
